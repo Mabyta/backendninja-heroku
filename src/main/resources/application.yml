@@ -4,15 +4,18 @@ spring:
   banner:
     location: classpath:/banners/banner_maby.txt
   datasource:
-    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: Caro0207
+    url: ${JDB_DATABASE_URL}
+    driverClassName: org.postgresql.Driver
+    maxActive: 10
+    maxIdle: 5
+    minIdle: 2
+    initialSize: 5
+    removeAbandoned: true
+    username: ${JDB_DATABASE_USERNAME}
+    password: ${JDB_DATABASE_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
