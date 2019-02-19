@@ -1,6 +1,7 @@
 package com.lsc.service.impl;
 
 import com.lsc.entity.UserRole;
+import com.lsc.model.UserCredential;
 import com.lsc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +31,15 @@ public class UserService implements UserDetailsService {
         com.lsc.entity.User user = userRepository.findByUsername(username);
         List<GrantedAuthority> authorities = buildAutorities(user.getUserRole());
         return bulldUser(user, authorities);
+    }
+
+    public void addUser(UserCredential userCredential){
+        com.lsc.entity.User user = new com.lsc.entity.User();
+        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+        user.setEnabled ( true );
+        user.setUsername ( userCredential.getUsername () );
+        user.setPassword ( pe.encode ( userCredential.getPassword () ) );
+        userRepository.save ( user );
     }
 
     private User bulldUser( com.lsc.entity.User user, List<GrantedAuthority> authorities){
