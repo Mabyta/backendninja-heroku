@@ -1,8 +1,15 @@
 package com.lsc.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class UserCredential {
 
+    @NotNull
+    @NotEmpty
     private String username;
+    @NotNull
+    @NotEmpty
     private String password;
 
     public UserCredential(){}

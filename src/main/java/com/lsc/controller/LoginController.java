@@ -2,8 +2,11 @@ package com.lsc.controller;
 
 import com.lsc.constant.ViewConstant;
 import com.lsc.model.UserCredential;
+import com.lsc.service.impl.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,10 @@ import javax.validation.Valid;
 public class LoginController {
 
     private static final Log LOGGER = LogFactory.getLog(LoginController.class);
+
+    @Autowired
+    @Qualifier("userService")
+    private UserService userService;
 
     @GetMapping({"/login","/"})
     public String showLoingInForm(Model model,
@@ -46,8 +53,11 @@ public class LoginController {
     @PostMapping("/adduser")
     public String addUser( @Valid @ModelAttribute(name = "user") UserCredential userCredential, BindingResult bindingResult ){
         if(!bindingResult.hasErrors()){
-
+            userService.addUser ( userCredential );
+            return "redirect:/login";
+        }else{
+            return ViewConstant.REGISTER_FORM;
         }
-        return "redirect:/login";
+
     }
 }
