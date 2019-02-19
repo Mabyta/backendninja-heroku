@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
     public void addUser(UserCredential userCredential){
         com.lsc.entity.User user = new com.lsc.entity.User();
         BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-        user.setEnabled ( true );
+        user.setEnabled ( false );
         user.setUsername ( userCredential.getUsername () );
         user.setPassword ( pe.encode ( userCredential.getPassword () ) );
         userRepository.save ( user );
