@@ -1,5 +1,6 @@
 package com.lsc.service.impl;
 
+import com.lsc.converter.UserConverter;
 import com.lsc.entity.UserRole;
 import com.lsc.model.UserCredential;
 import com.lsc.repository.UserRepository;
@@ -26,6 +27,10 @@ public class UserService implements UserDetailsService {
     @Qualifier("userRepository")
     private UserRepository userRepository;
 
+    @Autowired
+    @Qualifier("userConverter")
+    private UserConverter userConverter;
+
     @Override
     public UserDetails loadUserByUsername ( String username ) throws UsernameNotFoundException {
         com.lsc.entity.User user = userRepository.findByUsername(username);
@@ -34,12 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void addUser(UserCredential userCredential){
-        com.lsc.entity.User user = new com.lsc.entity.User();
-        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-        user.setEnabled ( false );
-        user.setUsername ( userCredential.getUsername () );
-        user.setPassword ( pe.encode ( userCredential.getPassword () ) );
-        userRepository.save ( user );
+        userRepository.save ( userConverter.ModelToEntity ( userCredential ) );
     }
 
     private User bulldUser( com.lsc.entity.User user, List<GrantedAuthority> authorities){
