@@ -7,7 +7,6 @@ spring:
     url: postgres://nfvqwtqmwjaeiq:ba1b44a84ac71b0b20e1a880a290a6cc5a894c3bce1fa4944df17b84182965f7@ec2-23-21-128-35.compute-1.amazonaws.com:5432/d7unovc0ppi1tf
     username: nfvqwtqmwjaeiq
     password: ba1b44a84ac71b0b20e1a880a290a6cc5a894c3bce1fa4944df17b84182965f7
-    database: d7unovc0ppi1tf
   jpa:
     show-sql: true
     hibernate:
