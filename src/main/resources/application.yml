@@ -4,18 +4,13 @@ spring:
   banner:
     location: classpath:/banners/banner_maby.txt
   datasource:
-    url: ${JDB_DATABASE_URL}
-    driverClassName: org.postgresql.Driver
-    maxActive: 10
-    maxIdle: 5
-    minIdle: 2
-    initialSize: 5
-    removeAbandoned: true
-    username: ${JDB_DATABASE_USERNAME}
-    password: ${JDB_DATABASE_PASSWORD}
+    url: postgres://nfvqwtqmwjaeiq:ba1b44a84ac71b0b20e1a880a290a6cc5a894c3bce1fa4944df17b84182965f7@ec2-23-21-128-35.compute-1.amazonaws.com:5432/d7unovc0ppi1tf
+    username: nfvqwtqmwjaeiq
+    password: ba1b44a84ac71b0b20e1a880a290a6cc5a894c3bce1fa4944df17b84182965f7
+    database: d7unovc0ppi1tf
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
